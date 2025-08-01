@@ -12,6 +12,20 @@ services:
       - monitoring_monitoring-net
     restart: unless-stopped
 
+  promtail:
+    image: grafana/promtail:3.0.0
+    container_name: promtail
+    command: -config.file=/etc/promtail/config.yaml
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/config.yaml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - django_project_logs1:/var/log/django
+    depends_on:
+      - django_app
+    restart: unless-stopped
+    networks:
+      - monitoring_monitoring-net
+
 networks:
   monitoring_monitoring-net:
     external: true
