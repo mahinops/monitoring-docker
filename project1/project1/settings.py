@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_prometheus',
+    'log_collector1',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,13 @@ LOGGING = {
 
 from .otel_tracing import configure_tracing
 configure_tracing()
+
+
+
+# drf configuration
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',  # <-- For Web UI
+    ]
+}
