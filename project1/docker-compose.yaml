@@ -1,0 +1,20 @@
+services:
+  django_app:
+    build: .
+    container_name: django-project1
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=project1.settings
+    volumes:
+      - django_project_logs1:/var/log/django
+    networks:
+      - monitoring_monitoring-net
+    restart: unless-stopped
+
+networks:
+  monitoring_monitoring-net:
+    external: true
+
+volumes:
+  django_project_logs1:

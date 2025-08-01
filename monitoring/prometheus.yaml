@@ -1,0 +1,11 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'django_app_metrics-1'
+    static_configs:
+      - targets: ['django-project1:8000']
+
+  - job_name: 'django_app_metrics-2'
+    static_configs:
+      - targets: ['django-app2:8000']
