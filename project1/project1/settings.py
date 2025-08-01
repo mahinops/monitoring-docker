@@ -142,3 +142,9 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+
+# tracing - tempo configuration
+
+from .otel_tracing import configure_tracing
+configure_tracing()

@@ -6,6 +6,9 @@ services:
       - "8000:8000"
     environment:
       - DJANGO_SETTINGS_MODULE=project1.settings
+      - OTEL_EXPORTER_OTLP_INSECURE=true
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://tempo:4318
+      - TEMPO_ENDPOINT=http://tempo:4318/v1/traces
     volumes:
       - django_project_logs1:/var/log/django
     networks:

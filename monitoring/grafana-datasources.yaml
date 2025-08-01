@@ -7,11 +7,11 @@ datasources:
     orgId: 1
     url: http://loki:3100
     basicAuth: false
-    isDefault: true
+    isDefault: false
     version: 1
     editable: true
     jsonData:
-      maxLines: 1000 # Max lines to show in live tail or query result
+      maxLines: 1000
 
   - name: Prometheus
     type: prometheus
@@ -23,5 +23,29 @@ datasources:
     version: 1
     editable: true
     jsonData:
-      httpMethod: POST # Use POST method for queries, can be changed to GET if needed
-      maxLines: 1000 # Max lines to show in live tail or query result
+      httpMethod: POST
+      maxLines: 1000
+
+  - name: Tempo
+    type: tempo
+    access: proxy
+    orgId: 1
+    url: http://tempo:3200
+    basicAuth: false
+    isDefault: true
+    version: 1
+    editable: true
+    jsonData:
+      httpMethod: GET
+      serviceMap:
+        datasourceUid: 'prometheus'
+      search:
+        hide: false
+      nodeGraph:
+        enabled: true
+      traceQuery:
+        timeShiftEnabled: true
+        spanStartTimeShift: '1h'
+        spanEndTimeShift: '-1h'
+      lokiSearch:
+        datasourceUid: 'loki'
