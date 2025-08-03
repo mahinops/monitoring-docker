@@ -9,3 +9,14 @@ scrape_configs:
   - job_name: 'django_app_metrics-2'
     static_configs:
       - targets: ['django-app2:8000']
+
+# --- ALERTING CONFIGURATION ---
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - 'alertmanager:9093' # The name of the Alertmanager service and its port
+
+# --- RULE FILES ---
+rule_files:
+  - "/etc/prometheus/alerts/uptime.yml"

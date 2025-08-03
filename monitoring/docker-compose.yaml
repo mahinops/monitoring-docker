@@ -4,6 +4,7 @@ services:
     container_name: prometheus
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+      - ./alerts:/etc/prometheus/alerts
       - prometheus_data:/prometheus
     ports:
       - "9090:9090"
@@ -60,7 +61,22 @@ services:
       - monitoring-net
     restart: unless-stopped
     user: "0:0"
-  
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - alertmanager_data:/data
+    ports:
+      - "9093:9093"
+    command: --config.file=/etc/alertmanager/alertmanager.yml --web.listen-address=:9093 --storage.path=/data
+    networks:
+      - monitoring-net
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    
 networks:
   monitoring-net:
     driver: bridge
@@ -70,3 +86,4 @@ volumes:
   grafana_data:
   prometheus_data:
   tempo_data:
+  alertmanager_data:
