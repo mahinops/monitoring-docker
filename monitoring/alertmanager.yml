@@ -12,7 +12,7 @@ receivers:
   - name: 'slack-notifications'
     slack_configs:
       - channel: '#test-uptime-kuma'
-        api_url: 'https://hooks.slack.com/services/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'
+        api_url: 'https://hooks.slack.com/services/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'
         send_resolved: true
         title: '{{ .CommonLabels.alertname }}'
         text: >

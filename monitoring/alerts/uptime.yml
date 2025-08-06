@@ -3,9 +3,19 @@ groups:
   rules:
   - alert: InstanceDown
     expr: up == 0
-    for: 1m
+    for: 20s
     labels:
       severity: critical
     annotations:
       summary: "Instance {{ $labels.instance }} is down"
       description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute."
+
+
+  - alert: InstanceUp
+    expr: up == 1
+    for: 20s
+    labels:
+      severity: info
+    annotations:
+      summary: "Instance {{ $labels.instance }} is back up"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been up for more than 1 minute."
